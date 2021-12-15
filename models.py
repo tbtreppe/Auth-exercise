@@ -27,3 +27,7 @@ class User(db.Model):
         if u and bcrypt.check_password_hash(u.password, pwd):
             return u
         else: return False
+
+    def connect_db(app):
+        db.app=app
+        db.init_app(app)  

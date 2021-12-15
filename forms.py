@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
-from wtforms.validators imput InputRequired
+from wtforms.validators import InputRequired
 
 class RegisterForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired()])
