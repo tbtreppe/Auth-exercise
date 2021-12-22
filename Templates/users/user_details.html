@@ -6,7 +6,7 @@ block content %}
     <h2 class="mt-4">Feedback</h2>
     <ul>
       {% for feedback in user.feedback %}
-      <li>{{feedback.title}} <small>{{ feedback.content }}</small></li>
+      <li><b>{{feedback.title}}</b> <small>{{ feedback.content }}</small></li>
       {% if session['username'== feedback.username] %}
 
       <form>
