@@ -73,7 +73,6 @@ def logout_user():
     flash("Successfully logged out", 'success')
     return redirect ('/login')
     
-
 @app.route("/users/<username>", methods=['GET', 'POST'])
 def show_user_details(username):
     if "username" not in session:
