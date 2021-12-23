@@ -79,8 +79,9 @@ def show_user_details(username):
         flash("Please log in first!", 'error')
         return redirect("users/register")
     user = User.query.get(username)
+    form = DeleteForm()
 
-    return render_template("users/user_details.html", user=user)
+    return render_template("users/user_details.html", user=user, form=form)
 
 @app.route("/users/<username>/delete", methods=['POST'])
 def delete_user(username):
@@ -117,13 +118,13 @@ def new_feedback(username):
     
     return render_template('feedback/new.html', form=form)
 
-@app.route("/feedback/<int:id>/update", methods =['GET', 'POST'])
-def update_feedback(id):
-    feedback = Feedback.query.get(id)
+@app.route("/feedback/<int:feedback_id>/update", methods =['GET', 'POST'])
+def update_feedback(feedback_id):
+    feedback = Feedback.query.get(feedback_id)
     if 'username' not in session:
         flash("Please login first", 'error')
         return redirect('/')
-    form=FeedbackForm(obj=feedback)
+    form = FeedbackForm(obj=feedback)
    
     if form.validate_on_submit():
         feedback.title = form.title.data
@@ -132,15 +133,15 @@ def update_feedback(id):
         flash("Feedback updated!", "success")
         return redirect(f"/users/{feedback.username}")
     
-    return render_template('feedback/edit.html', form=form, feedback=feedback)
+    return render_template("feedback/edit.html", form=form, feedback=feedback)
 
-@app.route("/feedback/<int:id>/delete", methods =['POST'])
-def delete_feedback(id):
-    feedback = Feedback.query.get_or_404(id)
+@app.route("/feedback/<int:feedback_id>/delete", methods =['POST'])
+def delete_feedback(feedback_id):
+    feedback = Feedback.query.get(feedback_id)
     if 'username' not in session:
         flash("please login first", 'error')
         return redirect('/')
-    form=DeleteForm
+    form = DeleteForm()
     if feedback.username == session['username']:
         db.session.delete(feedback)
         db.session.commit()
